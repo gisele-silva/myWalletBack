@@ -30,7 +30,7 @@ export async function authValidation(req, res, next){
         const sessao = await sessaoCollection.findOne({ token })
         if (!sessao) return res.status(401).send("Token inválido")
         
-        const usuario = await usersCollection.findOne({_id: sessao?.userId})
+        const usuario = await usersCollection.findOne({_id: sessao?.usuarioId})
         if(!usuario) return res.status(401).send("Não autorizado")
         //delete usuario.senha
         

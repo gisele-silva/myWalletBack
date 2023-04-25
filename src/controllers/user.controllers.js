@@ -1,4 +1,3 @@
-//import {  cadastroSchema, loginSchema } from "../schemas/user.schema.js"
 import { sessaoCollection, usersCollection } from "../database/database.connection.js"
 import bcrypt from "bcrypt"
 import {v4 as uuid} from "uuid"
@@ -6,12 +5,6 @@ import {v4 as uuid} from "uuid"
 
 export async function cadastro (req, res){
     const { nome, email, senha } = req.body
-
-    /*const validation = cadastroSchema.validate(req.body, { abortEarly: false })
-    if(validation.error){
-        const errors = validation.error.map((detail) => detail.message)
-        return res.status(422).send(errors)
-    }*/
 
     try {
         const usuario = await usersCollection.findOne({ email })
@@ -28,12 +21,6 @@ export async function cadastro (req, res){
 
 export async function login (req, res){
     const {email, senha} = req.body
-    
-    /*const validation = loginSchema.validate(req.body, { abortEarly: false })
-    if (validation.error) {
-        const errors = validation.error.map((detail) => detail.message)
-        return res.status(422).send(errors)
-    }*/
 
     try {
         const usuario = await usersCollection.findOne({ email })
@@ -45,7 +32,7 @@ export async function login (req, res){
         const token = uuid()
         await sessaoCollection.insertOne({ userId: usuario._id, token })
 
-        res.status(200).send(token)
+        res.status(200).send({token})
     } catch (error) {
         return res.status(500).send(error.message)
     }

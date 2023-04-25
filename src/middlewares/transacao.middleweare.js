@@ -3,13 +3,13 @@ import { transacaoSchema } from "../schemas/transacao.schema.js"
 
 
 export function transacaoSchemaValidate (req, res, next){
-    const {valor, descricao, tipo} = req.body
+    const {value, descricao, type} = req.body
     const usuario = res.locals.usuario
 
     const transacao = {
-        valor, 
+        value, 
         descricao,
-        tipo,
+        type,
         usuario: usuario._id,
         createdAt: dayjs().format('DD/MM/YYYY')
     }

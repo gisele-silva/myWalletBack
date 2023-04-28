@@ -9,7 +9,7 @@ export async function cadastro (req, res){
     try {
         const usuario = await usersCollection.findOne({ email })
         if(usuario) return res.status(409).send("Email já cadastrado")
-
+        
         const hash = bcrypt.hashSync(senha, 10)
         await usersCollection.insertOne({ nome, email, senha: hash })
         

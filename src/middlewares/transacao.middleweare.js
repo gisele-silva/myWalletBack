@@ -4,8 +4,9 @@ import { transacaoSchema } from "../schemas/transacao.schema.js"
 
 export function transacaoSchemaValidate (req, res, next){
     const {value, descricao, type} = req.body
+    
     const usuario = res.locals.usuario
-
+    
     const transacao = {
         value, 
         descricao,
@@ -22,5 +23,6 @@ export function transacaoSchemaValidate (req, res, next){
     }
 
     res.locals.transacao = transacao
+    console.log("res.locals.transacao: ", res.locals.transacao)
     next ()
 }
